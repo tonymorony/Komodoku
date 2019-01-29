@@ -19,15 +19,17 @@ import pygame
 import sys
 import random
 import sudoku_kmdlib
+import time
 
 class PyGameBoard():
   """Represents the game's frontend using pygame"""
 
-  def __init__(self, engine, windowSize, gridValues):
+  def __init__(self, engine, windowSize, gridValues, timestampValues):
     pygame.init()
     pygame.display.set_caption('Sudoku')
     self.__engine = engine
     self.__gridValues = gridValues
+    self.__timestampValues = timestampValues
     self.__screen = pygame.display.set_mode(windowSize)
     background = pygame.image.load('background.png').convert()
     board = pygame.image.load('board.png')
@@ -101,6 +103,7 @@ class PyGameBoard():
       self.__currentTile.setFontColor(pygame.color.THECOLORS['blue'])
       self.__currentTile.updateValue(validKeys[key])
       self.__gridValues[i][j] = self.__currentTile.getValue()
+      self.__timestampValues[str(i)+str(j)] = int(round(time.time()))
 
   def __handleMouse(self, (x, y)):
     for row in self.__tiles:
@@ -121,7 +124,7 @@ class PyGameBoard():
       self.__updateBoard(self.__engine.lineToGrid(linePuzzle))
       self.__unhightlightBoard()
     elif self.__checkTextRect.collidepoint(x, y):
-      ret = self.__engine.checkSolution(self.__gridValues)
+      ret = self.__engine.checkSolution(self.__gridValues, self.__timestampValues)
       ret = self.__engine.lineToGrid(ret)
       for i in range(9):
         for j in range(9):
@@ -249,13 +252,15 @@ class Sudoku:
   def startNewGame(self):
     self.__linePuzzle = self.__loadPuzzle(self.__puzzleFile)
     gridValues = self.lineToGrid(self.__linePuzzle)
+    # prefill 0 timestamps for already known numbers
+    timestampValues = self.prefill_timestamps(gridValues)
     print
     'Getting solution.. ',
     sys.stdout.flush()
-    self.__solution = self.__solve(self.__linePuzzle)
+    #self.__solution = self.__solve(self.__linePuzzle)
     print
     'Done'
-    board = PyGameBoard(self, (600, 400), gridValues)
+    board = PyGameBoard(self, (600, 400), gridValues, timestampValues)
     board.setValues(gridValues)
 
   def __loadPuzzle(self, listName):
@@ -302,6 +307,14 @@ class Sudoku:
         if funcRet is not None:
           return funcRet
 
+  def prefill_timestamps(self, grid):
+    timestamps = {}
+    for i in range(9):
+      for j in range(9):
+        if grid[i][j] == "-":
+          timestamps[str(i)+str(j)] = 0
+    return timestamps
+
   def sameRow(self, i, j):
     return (i / 9 == j / 9)
 
@@ -311,19 +324,11 @@ class Sudoku:
   def sameBlock(self, i, j):
     return (i / 27 == j / 27 and i % 9 / 3 == j % 9 / 3)
 
-  def checkSolution(self, attemptGrid):
+  def checkSolution(self, attemptGrid, timestampValues):
     attemptLine = self.gridToLine(attemptGrid)
-    assert (len(attemptLine) == 81)
-    ret = []
-    for i in range(81):
-      if attemptLine[i] == '-':
-        ret.append(True)
-        continue
-      if attemptLine[i] == self.__solution[i]:
-        ret.append(True)
-      else:
-        ret.append(False)
-    return ret
+    print attemptLine
+    print timestampValues
+    return attemptLine
 
 
 def main():
