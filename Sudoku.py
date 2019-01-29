@@ -241,8 +241,9 @@ class Tile():
 class Sudoku:
   """Represents the game's backend and logic"""
 
-  def __init__(self, puzzleFile):
+  def __init__(self, puzzleFile, rpc_connection):
     self.__puzzleFile = puzzleFile
+    self.__rpc_connection = rpc_connection
     self.startNewGame()
 
   def startNewGame(self):
@@ -257,9 +258,12 @@ class Sudoku:
     board = PyGameBoard(self, (600, 400), gridValues)
     board.setValues(gridValues)
 
-  def __loadPuzzle(self, fileName):
+  def __loadPuzzle(self, listName):
+    choosen_puzzle = random.choice(listName)
+    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"' + choosen_puzzle  + '"')["unsolved"]
+    print "Puzzle ID: " + choosen_puzzle
     ret = []
-    linePuzzle = str(fileName)
+    linePuzzle = str(puzzle)
     for i in linePuzzle:
       ret.append(i)
     return ret
@@ -329,7 +333,7 @@ def main():
     try:
       print 'Welcome to SudokuWorld'
       rpc_connection = sudoku_kmdlib.def_credentials(chain)
-      puzzle = rpc_connection.cclib("txidinfo", "17", '"5d13c1ad80daf37215c74809a36720c2ada90bacadb2e10bf0866092ce558432"')["unsolved"]
+      puzzle_list = rpc_connection.cclib("pending", "17")["pending"]
     except Exception as e:
       #print rpc_connection
       print e
@@ -338,7 +342,7 @@ def main():
     else:
       print 'Succesfully connected!\n'
       break
-  newGame = Sudoku(puzzle)
+  newGame = Sudoku(puzzle_list, rpc_connection)
 
 if __name__ == '__main__':
   main()
