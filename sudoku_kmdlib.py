@@ -12,8 +12,8 @@ def def_credentials(chain):
         ac_dir = os.environ['HOME'] + '/Library/Application Support/Komodo'
     elif operating_system == 'Linux':
         ac_dir = os.environ['HOME'] + '/.komodo'
-    elif operating_system == 'Win64':
-        ac_dir = "dont have windows machine now to test"
+    elif operating_system == 'Windows':
+        ac_dir = '%s/komodo/' % os.environ['APPDATA']
     if chain == 'KMD':
         coin_config_file = str(ac_dir + '/komodo.conf')
     else:
@@ -36,3 +36,4 @@ def def_credentials(chain):
             exit(1)
 
     return(Proxy("http://%s:%s@127.0.0.1:%d"%(rpcuser, rpcpassword, int(rpcport))))
+

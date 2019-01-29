@@ -327,13 +327,15 @@ class Sudoku:
     
 def main():
   while True:
-    chain = raw_input("Input assetchain name (-ac_name= value) you want to work with: ")
+    # Assetchain hardcoded here
+    chain = 'SUDOKU'
     try:
       print 'Welcome to SudokuWorld'
       rpc_connection = sudoku_kmdlib.def_credentials(chain)
       rpc_connection.getinfo(rpc_connection)
     except Exception:
-      print 'Cant connect to RPC! Please re-check credentials'
+      print 'Cant connect to SUDOKU Daemon! Please re-check if it up'
+      sys.exit()
     else:
       print 'Succesfully connected!\n'
       break
