@@ -264,9 +264,9 @@ class Sudoku:
     board.setValues(gridValues)
 
   def __loadPuzzle(self, listName):
-    choosen_puzzle = random.choice(listName)
-    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"' + choosen_puzzle  + '"')["unsolved"]
-    print "Puzzle ID: " + choosen_puzzle
+    self.__chosen_puzzle = random.choice(listName)
+    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"' + self.__chosen_puzzle  + '"')["unsolved"]
+    print "Puzzle ID: " + self.__chosen_puzzle
     ret = []
     linePuzzle = str(puzzle)
     for i in linePuzzle:
@@ -325,9 +325,17 @@ class Sudoku:
     return (i / 27 == j / 27 and i % 9 / 3 == j % 9 / 3)
 
   def checkSolution(self, attemptGrid, timestampValues):
+    # [%22<txid>%22,%22<solution>%22,t0,t1,t2,...]
     attemptLine = self.gridToLine(attemptGrid)
-    print attemptLine
-    print timestampValues
+
+    #print attemptLine
+    #print timestampValues
+    timestampsline = ""
+    for timestamp in timestampValues.values():
+        timestampsline += ","
+        timestampsline += str(timestamp)
+    arg_line = "[%22"+self.__chosen_puzzle+"%22,%22"+attemptLine+"%22"+timestampsline+"]"
+    print arg_line
     return attemptLine
 
 
