@@ -18,6 +18,7 @@
 import pygame
 import sys
 import random
+import time
 
 class PyGameBoard():
   """Represents the game's frontend using pygame"""
@@ -59,7 +60,7 @@ class PyGameBoard():
     self.__screen.blit(self.__titleText, self.__titleTextRect)
 
     font = pygame.font.Font(None, 18)
-    self.__titleText = font.render('paul bourke 2010', 1, (0, 0, 0))
+    self.__titleText = font.render('TonyL 2019', 1, (0, 0, 0))
     self.__titleTextRect = self.__titleText.get_rect()
     self.__titleTextRect.centerx = 445
     self.__titleTextRect.centery = 55 
@@ -325,6 +326,17 @@ class Sudoku:
     return ret
     
 def main():
+  while True:
+    chain = raw_input("Input assetchain name (-ac_name= value) you want to work with: ")
+    try:
+      print 'Welcome to SudokuWorld'
+      rpc_connection = sudoku_kmdlib.def_credentials(chain)
+      rpc_connection.getinfo(rpc_connection)
+    except Exception:
+      print 'Cant connect to RPC! Please re-check credentials'
+    else:
+      print 'Succesfully connected!\n'
+      break
   newGame = Sudoku('puzzles.txt')
 
 if __name__ == '__main__':
