@@ -19,6 +19,7 @@ import pygame
 import sys
 import random
 import time
+import sudoku_kmdlib
 
 class PyGameBoard():
   """Represents the game's frontend using pygame"""
@@ -333,7 +334,9 @@ def main():
       print 'Welcome to SudokuWorld'
       rpc_connection = sudoku_kmdlib.def_credentials(chain)
       rpc_connection.getinfo(rpc_connection)
-    except Exception:
+    except Exception as e:
+      #print rpc_connection
+      print e
       print 'Cant connect to SUDOKU Daemon! Please re-check if it up'
       sys.exit()
     else:
