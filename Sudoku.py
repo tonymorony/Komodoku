@@ -251,6 +251,7 @@ class Sudoku:
     self.__chosen_puzzle = random.choice(listName)
     puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"' + self.__chosen_puzzle  + '"')["unsolved"]
     print "Puzzle ID: " + self.__chosen_puzzle
+    print "Reward amount: " + str(self.__rpc_connection.cclib("txidinfo", "17", '"' + self.__chosen_puzzle  + '"')["amount"])
     ret = []
     linePuzzle = str(puzzle)
     for i in linePuzzle:
@@ -340,7 +341,7 @@ def main():
     # Assetchain hardcoded here
     chain = 'SUDOKU'
     try:
-      print 'Welcome to SudokuWorld'
+      print 'Welcome to the Komodo SudokuCC'
       rpc_connection = sudoku_kmdlib.def_credentials(chain)
       pending_puzzles = rpc_connection.cclib("pending", "17")["pending"]
       puzzle_list = []
