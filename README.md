@@ -4,6 +4,8 @@ Komodo SudokuCC GUI
 
 Just solve Sudoku and earn SUDOKU coins!
 
+![alt text](https://i.imgur.com/std99XW.png)
+
 To run you need up and running SUDOKU chain daemon built from latest https://github.com/jl777/komodo/tree/jl777 and started with valid for your wallet pubkey in `-pubkey=` param.
 
 SUDOKU chain params: 
