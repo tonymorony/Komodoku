@@ -126,14 +126,6 @@ class PyGameBoard():
       self.__unhightlightBoard()
     elif self.__checkTextRect.collidepoint(x, y):
       ret = self.__engine.checkSolution(self.__gridValues, self.__timestampValues)
-      ret = self.__engine.lineToGrid(ret)
-      for i in range(9):
-        for j in range(9):
-          self.__tiles[i][j].setCorrect(ret[i][j])
-          if ret[i][j] is False:
-            self.__tiles[i][j].highlight((255, 164, 164))
-          else:
-            self.__tiles[i][j].unhighlight()
 
   def __updateBoard(self, gridValues):
     for i in range(9):
@@ -255,12 +247,6 @@ class Sudoku:
     gridValues = self.lineToGrid(self.__linePuzzle)
     # prefill 0 timestamps for already known numbers
     timestampValues = self.prefill_timestamps(gridValues)
-    print
-    'Getting solution.. ',
-    sys.stdout.flush()
-    #self.__solution = self.__solve(self.__linePuzzle)
-    print
-    'Done'
     board = PyGameBoard(self, (600, 400), gridValues, timestampValues)
     board.setValues(gridValues)
 
@@ -338,8 +324,15 @@ class Sudoku:
         timestampsline += str(timestamp)
     arg_line = "[%22"+self.__chosen_puzzle+"%22,%22"+attemptLine+"%22"+timestampsline+"]"
     print arg_line
-    return attemptLine
-
+    try:
+        solution_info = self.__rpc_connection.cclib("solution", "17", arg_line)
+        print(solution_info)
+        solution_txid = self.__rpc_connection.sendrawtransaction(solution_info["hex"])
+    except Exception as e:
+        print(e)
+        print(solution_info)
+        solution_txid = 'error'
+    return solution_txid
 
 def main():
   while True:
