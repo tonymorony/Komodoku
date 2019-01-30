@@ -36,6 +36,6 @@ def def_credentials(chain):
             print("check "+coin_config_file)
             exit(1)
 
-    return(Proxy("http://%s:%s@127.0.0.1:%d"%("user1392542560", "pass948c5d2868fa22715ef46a19366516adc50ffc72c732beea39dbc13f15c7f6351b", int("25948"))))
+    return(Proxy("http://%s:%s@127.0.0.1:%d"%(rpcuser, rpcpassword, int(rpcport))))
 
 
