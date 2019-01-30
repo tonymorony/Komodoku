@@ -314,7 +314,7 @@ class Sudoku:
     arg_line = "[%22"+self.__chosen_puzzle+"%22,%22"+attemptLine+"%22"+timestampsline+"]"
     print arg_line
     try:
-        solution_info = self.__rpc_connection.cclib("solution", "17", arg_line)
+        solution_info = self.__rpc_connection.cclib("solution", "17", '"' + arg_line + '"')
         print(solution_info)
         solution_txid = self.__rpc_connection.sendrawtransaction(solution_info["hex"])
     except Exception as e:
