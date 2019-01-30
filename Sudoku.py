@@ -76,6 +76,12 @@ class PyGameBoard():
     self.__newGameTextRect.centery = 180
     self.__screen.blit(self.__newGameText, self.__newGameTextRect)
 
+    self.__solveText = font.render('-Check Balance-', 1, (0, 0, 0))
+    self.__solveTextRect = self.__solveText.get_rect()
+    self.__solveTextRect.centerx = 495
+    self.__solveTextRect.centery = 220
+    self.__screen.blit(self.__solveText, self.__solveTextRect)
+
     font = pygame.font.Font('gunny.ttf', 30)
     self.__checkText = font.render('-Check Solution-', 1, (0, 0, 0))
     self.__checkTextRect = self.__checkText.get_rect()
@@ -113,6 +119,8 @@ class PyGameBoard():
             self.__currentTile = tile
     if self.__newGameTextRect.collidepoint(x, y):
       self.__engine.startNewGame()
+    elif self.__solveTextRect.collidepoint(x, y):
+        self.__engine.getSolution()
     elif self.__checkTextRect.collidepoint(x, y):
       ret = self.__engine.checkSolution(self.__gridValues, self.__timestampValues)
 
@@ -264,7 +272,9 @@ class Sudoku:
     return grid
 
   def getSolution(self):
-    return self.__solution
+    balance = self.__rpc_connection.cclibaddress("17")["mybalance"]
+    print "Your balance:"
+    print balance
 
   def __solve(self, linePuzzle):
     linePuzzle = ''.join(linePuzzle)
@@ -315,8 +325,10 @@ class Sudoku:
     print arg_line
     try:
         solution_info = self.__rpc_connection.cclib("solution", "17", '"' + arg_line + '"')
-        print(solution_info)
+        print solution_info
         solution_txid = self.__rpc_connection.sendrawtransaction(solution_info["hex"])
+        print "Solution accepted!"
+        print solution_txid
     except Exception as e:
         print(e)
         print(solution_info)
