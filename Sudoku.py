@@ -69,7 +69,7 @@ class PyGameBoard():
     self.__titleTextRect.centery = 55
     self.__screen.blit(self.__titleText, self.__titleTextRect)
 
-    font = pygame.font.Font('gunny.ttf', 30)
+    font = pygame.font.Font('Roboto-Light.ttf', 24)
     self.__newGameText = font.render('-New Game-', 1, (0, 0, 0))
     self.__newGameTextRect = self.__newGameText.get_rect()
     self.__newGameTextRect.centerx = 495
@@ -82,7 +82,7 @@ class PyGameBoard():
     self.__solveTextRect.centery = 220
     self.__screen.blit(self.__solveText, self.__solveTextRect)
 
-    font = pygame.font.Font('gunny.ttf', 30)
+    font = pygame.font.Font('Roboto-Light.ttf', 24)
     self.__checkText = font.render('-Check Solution-', 1, (0, 0, 0))
     self.__checkTextRect = self.__checkText.get_rect()
     self.__checkTextRect.centerx = 495
@@ -222,7 +222,7 @@ class Tile():
     value = self.__value
     if self.__value == '-':
       value = ''
-    font = pygame.font.Font('gunny.ttf', 30)
+    font = pygame.font.Font('Roboto-Light.ttf', 24)
     text = font.render(str(value), 1, self.__fontColor)
     textpos = text.get_rect()
     textpos.centerx = self.__rect.centerx
@@ -274,8 +274,7 @@ class Sudoku:
 
   def getSolution(self):
     balance = self.__rpc_connection.cclibaddress("17")["mybalance"]
-    print "Your balance:"
-    print balance
+    print "Your balance: " + str(balance)
 
   def __solve(self, linePuzzle):
     linePuzzle = ''.join(linePuzzle)
