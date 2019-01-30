@@ -15,7 +15,7 @@ SUDOKU chain params:
 
 ```
 $ sudo apt-get install python-pygame libgnutls28-dev
-$ pip install requests wheel python-bitcoinlib slick-bitcoinrpc pygame
+$ pip install requests wheel slick-bitcoinrpc pygame
 ```
 
 2) and then start:
