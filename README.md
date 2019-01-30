@@ -21,7 +21,7 @@ $ pip install requests wheel python-bitcoinlib slick-bitcoinrpc pygame
 2) and then start:
 
 ```
-$ git clone https://github.com/tonymorony/Sudoku
-$ cd Sudoku
+$ git clone https://github.com/tonymorony/Komodoku
+$ cd Komodoku
 $ python Sudoku.py
 ```
