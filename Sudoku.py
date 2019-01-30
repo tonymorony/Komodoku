@@ -76,12 +76,6 @@ class PyGameBoard():
     self.__newGameTextRect.centery = 180
     self.__screen.blit(self.__newGameText, self.__newGameTextRect)
 
-    self.__solveText = font.render('-Solve-', 1, (0, 0, 0))
-    self.__solveTextRect = self.__solveText.get_rect()
-    self.__solveTextRect.centerx = 495
-    self.__solveTextRect.centery = 220
-    self.__screen.blit(self.__solveText, self.__solveTextRect)
-
     font = pygame.font.Font('gunny.ttf', 30)
     self.__checkText = font.render('-Check Solution-', 1, (0, 0, 0))
     self.__checkTextRect = self.__checkText.get_rect()
@@ -119,11 +113,6 @@ class PyGameBoard():
             self.__currentTile = tile
     if self.__newGameTextRect.collidepoint(x, y):
       self.__engine.startNewGame()
-    elif self.__solveTextRect.collidepoint(x, y):
-      linePuzzle = self.__engine.gridToLine(self.__gridValues)
-      linePuzzle = self.__engine.getSolution()
-      self.__updateBoard(self.__engine.lineToGrid(linePuzzle))
-      self.__unhightlightBoard()
     elif self.__checkTextRect.collidepoint(x, y):
       ret = self.__engine.checkSolution(self.__gridValues, self.__timestampValues)
 
