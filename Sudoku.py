@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # Copyright (C) 2010 Paul Bourke <pauldbourke@gmail.com>
+# Copyright (C) 2019 Anton Lysakov <tlysakov@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
