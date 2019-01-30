@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # Copyright (C) 2010 Paul Bourke <pauldbourke@gmail.com>
+# Copyright (C) 2019 Anton Lysakov <tlysakov@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,7 +55,7 @@ class PyGameBoard():
 
   def __drawUI(self):
     '''Draws the text buttons along the right panel'''
-    font = pygame.font.Font(None, 38)
+    font = pygame.font.Font('Roboto-Light.ttf', 28)
     font.set_underline(True)
     self.__titleText = font.render('Sudoku', 1, (0, 0, 0))
     self.__titleTextRect = self.__titleText.get_rect()
@@ -62,7 +63,7 @@ class PyGameBoard():
     self.__titleTextRect.centery = 30
     self.__screen.blit(self.__titleText, self.__titleTextRect)
 
-    font = pygame.font.Font(None, 18)
+    font = pygame.font.Font('Roboto-Light.ttf', 14)
     self.__titleText = font.render('TonyL 2019', 1, (0, 0, 0))
     self.__titleTextRect = self.__titleText.get_rect()
     self.__titleTextRect.centerx = 445
@@ -351,6 +352,7 @@ def main():
       #print rpc_connection
       print e
       print 'Cant connect to SUDOKU Daemon! Please re-check if it up'
+      input('Press any button to exit')
       sys.exit()
     else:
       print 'Succesfully connected!\n'
