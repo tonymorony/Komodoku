@@ -346,7 +346,11 @@ def main():
     try:
       print 'Welcome to SudokuWorld'
       rpc_connection = sudoku_kmdlib.def_credentials(chain)
-      puzzle_list = rpc_connection.cclib("pending", "17")["pending"]
+      pending_puzzles = rpc_connection.cclib("pending", "17")["pending"]
+      puzzle_list = []
+      for puzzle in pending_puzzles:
+        puzzle_list.append(puzzle["txid"])
+
     except Exception as e:
       #print rpc_connection
       print e
