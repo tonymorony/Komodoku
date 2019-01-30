@@ -100,10 +100,11 @@ class PyGameBoard():
     elif key in validKeys:
       i = self.__currentTile.getGridLoc()[0]
       j = self.__currentTile.getGridLoc()[1]
+      cell_num = 9 * i + (j + 1)
       self.__currentTile.setFontColor(pygame.color.THECOLORS['blue'])
       self.__currentTile.updateValue(validKeys[key])
       self.__gridValues[i][j] = self.__currentTile.getValue()
-      self.__timestampValues[str(i)+str(j)] = int(round(time.time()))
+      self.__timestampValues[cell_num] = int(round(time.time()))
 
   def __handleMouse(self, (x, y)):
     for row in self.__tiles:
@@ -311,8 +312,9 @@ class Sudoku:
     timestamps = {}
     for i in range(9):
       for j in range(9):
-        if grid[i][j] == "-":
-          timestamps[str(i)+str(j)] = 0
+          if grid[i][j] != '-':
+              cell_num = 9 * i + ( j + 1 )
+              timestamps[cell_num] = 0
     return timestamps
 
   def sameRow(self, i, j):
