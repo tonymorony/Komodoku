@@ -14,7 +14,7 @@ SUDOKU chain params:
 1) install dependencies:
 
 ```
-$ sudo apt-get install libgnutls28-dev python-pygame libgnutls28-dev
+$ sudo apt-get install python-pygame libgnutls28-dev
 $ pip install requests wheel python-bitcoinlib slick-bitcoinrpc pygame
 ```
 
