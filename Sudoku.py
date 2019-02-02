@@ -32,8 +32,8 @@ class PyGameBoard():
     self.__gridValues = gridValues
     self.__timestampValues = timestampValues
     self.__screen = pygame.display.set_mode(windowSize)
-    background = pygame.image.load('background.png').convert()
-    board = pygame.image.load('board.png')
+    background = pygame.image.load(sys.path[0] + '/background.png').convert()
+    board = pygame.image.load(sys.path[0] + '/board.png')
     boardX = boardY = 10
     self.__screen.blit(background, (0, 0))
     self.__screen.blit(board, (boardX, boardY))
@@ -55,7 +55,7 @@ class PyGameBoard():
 
   def __drawUI(self):
     '''Draws the text buttons along the right panel'''
-    font = pygame.font.Font(None, 38)
+    font = pygame.font.Font(sys.path[0] + '/Roboto-Light.ttf', 28)
     font.set_underline(True)
     self.__titleText = font.render('Sudoku', 1, (0, 0, 0))
     self.__titleTextRect = self.__titleText.get_rect()
@@ -63,14 +63,14 @@ class PyGameBoard():
     self.__titleTextRect.centery = 30
     self.__screen.blit(self.__titleText, self.__titleTextRect)
 
-    font = pygame.font.Font(None, 18)
+    font = pygame.font.Font(sys.path[0] + '/Roboto-Light.ttf', 14)
     self.__titleText = font.render('TonyL 2019', 1, (0, 0, 0))
     self.__titleTextRect = self.__titleText.get_rect()
     self.__titleTextRect.centerx = 445
     self.__titleTextRect.centery = 55
     self.__screen.blit(self.__titleText, self.__titleTextRect)
 
-    font = pygame.font.Font('Roboto-Light.ttf', 24)
+    font = pygame.font.Font(sys.path[0] + '/Roboto-Light.ttf', 24)
     self.__newGameText = font.render('-New Game-', 1, (0, 0, 0))
     self.__newGameTextRect = self.__newGameText.get_rect()
     self.__newGameTextRect.centerx = 495
@@ -83,7 +83,7 @@ class PyGameBoard():
     self.__solveTextRect.centery = 220
     self.__screen.blit(self.__solveText, self.__solveTextRect)
 
-    font = pygame.font.Font('Roboto-Light.ttf', 24)
+    font = pygame.font.Font(sys.path[0] + '/Roboto-Light.ttf', 24)
     self.__checkText = font.render('-Check Solution-', 1, (0, 0, 0))
     self.__checkTextRect = self.__checkText.get_rect()
     self.__checkTextRect.centerx = 495
@@ -223,7 +223,7 @@ class Tile():
     value = self.__value
     if self.__value == '-':
       value = ''
-    font = pygame.font.Font('Roboto-Light.ttf', 24)
+    font = pygame.font.Font(sys.path[0] + '/Roboto-Light.ttf', 24)
     text = font.render(str(value), 1, self.__fontColor)
     textpos = text.get_rect()
     textpos.centerx = self.__rect.centerx
