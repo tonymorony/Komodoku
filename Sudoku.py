@@ -250,7 +250,7 @@ class Sudoku:
 
   def __loadPuzzle(self, listName):
     self.__chosen_puzzle = random.choice(listName)
-    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"' + self.__chosen_puzzle  + '"')["unsolved"]
+    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"%22' + self.__chosen_puzzle  + '%22"')["unsolved"]
     print "Puzzle ID: " + self.__chosen_puzzle
     print "Reward amount: " + str(self.__rpc_connection.cclib("txidinfo", "17", '"%22' + self.__chosen_puzzle  + '%22"')["amount"])
     ret = []
@@ -325,7 +325,7 @@ class Sudoku:
     arg_line = "[%22"+self.__chosen_puzzle+"%22,%22"+attemptLine+"%22"+timestampsline+"]"
     print arg_line
     try:
-        solution_info = self.__rpc_connection.cclib("solution", "17", '"%22' + arg_line + '%22"')
+        solution_info = self.__rpc_connection.cclib("solution", "17", '"' + arg_line + '"')
         print solution_info
         solution_txid = self.__rpc_connection.sendrawtransaction(solution_info["hex"])
         print "Solution accepted!"
