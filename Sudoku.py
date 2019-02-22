@@ -250,9 +250,9 @@ class Sudoku:
 
   def __loadPuzzle(self, listName):
     self.__chosen_puzzle = random.choice(listName)
-    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"%22' + self.__chosen_puzzle  + '%22"')["unsolved"]
+    puzzle = self.__rpc_connection.cclib("txidinfo", "17", '"' + self.__chosen_puzzle  + '"')["unsolved"]
     print "Puzzle ID: " + self.__chosen_puzzle
-    print "Reward amount: " + str(self.__rpc_connection.cclib("txidinfo", "17", '"' + self.__chosen_puzzle  + '"')["amount"])
+    print "Reward amount: " + str(self.__rpc_connection.cclib("txidinfo", "17", '"%22' + self.__chosen_puzzle  + '%22"')["amount"])
     ret = []
     linePuzzle = str(puzzle)
     for i in linePuzzle:
